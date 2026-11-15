@@ -26,6 +26,8 @@
 #ifndef _SAAT_SFX_H_
 #define _SAAT_SFX_H_
 
+#include <stdint.h>
+
 // Data structures and constants related to the format of the stream file; 
 // hopefully self-evident because I'm not explaining them ;)
 

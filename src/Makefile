@@ -11,7 +11,7 @@
 # Predefined PLATFORM configurations:
 #  cygwin -- .exe; POSIX pathing but WIN32 filenames; compiles with -pedantic
 #  mingw -- .exe; WIN32 pathing, filenames and mkdir(); /mingw in search path
-#  posix -- POSIX paths; unrestricted filenames; calls posix_fadvise; -pedantic
+#  posix -- POSIX paths; calls posix_fadvise; -pedantic
 #  release -- very specific cygwin/mingw hybrid for the WIN32 binary release
 #  custom -- blank; just insert your own values in the first section.
 PLATFORM = release
@@ -20,7 +20,8 @@ PLATFORM = release
 #  -DWIN32 -- uses modeless mkdir and uses WIN32 paths and filenames as below.
 #  -DWIN32_PATHS -- Backslash (\) directory separator, compensates for 
 #                   potential drive names with colons (e.g. c:\foo)
-#  -DWIN32_FILENAMES -- Sanitize output filenames to get rid of <>\|/*:"?
+#  -DWIN32_FILENAMES -- No longer has any effect; output filenames are now
+#                       always sanitized to get rid of <>\|/*:"?
 #  -DPOSIX_FADVISE -- enables posix_fadvise call to advise kernel not
 #                     to cache some input data.
 # Yeah, this is probably inefficient. Oh well.

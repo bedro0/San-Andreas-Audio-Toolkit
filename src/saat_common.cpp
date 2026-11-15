@@ -136,8 +136,9 @@ bool is_absolute_pathname(const string filename) {
   return false; // Default
 }
 
-// Removes bad chars from filename; currently only deals with the 9 bad
-// chars for win32 when compiled with -DWIN32_FILENAMES.
+// Removes bad chars from filename; deals with the 9 bad chars for win32.
+// This is done on every platform so that output filenames are the same
+// everywhere (and '/' must be removed on POSIX systems anyway).
 string sanitize_filename(const string source) {
   // In perl, I would throw together a few regexps to do this, but I know
   // nothing of regexps in C++. Since the replacements are fairly simple, I 
@@ -147,7 +148,6 @@ string sanitize_filename(const string source) {
 
   string::const_iterator p = source.begin();
   while (p != source.end()) {
-#if defined WIN32_FILENAMES || defined WIN32
     // Win32 hates the following 9 characters \/:*?"<>|
     // Double quote -> single quote
     // Angle brackets -> square brackets
@@ -175,7 +175,6 @@ string sanitize_filename(const string source) {
     default:
       dest += (*p);
     }
-#endif
     ++p;
   }
   return dest;

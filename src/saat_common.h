@@ -26,11 +26,18 @@
 #ifndef _SAAT_COMMON_H_
 #define _SAAT_COMMON_H_
 
+#include <fcntl.h>
+#include <stdint.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 #include "config.h"
 #include "lookup.h"
+
+// O_BINARY only exists on WIN32; elsewhere there is no text/binary mode
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 #if defined WIN32_PATHS || defined WIN32
 #define SLASH '\\'

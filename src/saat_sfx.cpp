@@ -66,7 +66,7 @@
 using namespace std;
 
 int main (int argc, char **argv) {
-  string exe_name = basename(argv[0]);
+  string exe_name = basename(string(argv[0]));
 
   cout << "San Andreas Audio Toolkit (SAAT) SFX Tool " 
        << SAAT_VERSION_STR << "\n" << endl;

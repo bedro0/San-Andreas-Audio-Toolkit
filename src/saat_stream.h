@@ -26,6 +26,8 @@
 #ifndef _SAAT_STREAM_H_
 #define _SAAT_STREAM_H_
 
+#include <stdint.h>
+
 // Program invocation modes
 enum mode { MODE_UNKNOWN, MODE_IMPORT, MODE_EXPORT, MODE_EXRFSA };
 

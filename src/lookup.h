@@ -38,6 +38,7 @@
 #include <iostream>
 #include <list>
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <unistd.h>
 

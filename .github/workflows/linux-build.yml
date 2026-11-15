@@ -1,0 +1,49 @@
+name: Linux build
+
+on:
+  push:
+    branches: [main, linux-build]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libogg-dev libvorbis-dev libsndfile1-dev
+
+      - name: Build
+        run: make -C src PLATFORM=posix
+
+      - name: Smoke test
+        run: |
+          # With no arguments both tools print usage (and exit non-zero)
+          ./src/saat_stream 2>&1 | grep -q 'saat_stream -r'
+          ./src/saat_sfx 2>&1 | grep -q 'saat_sfx -e'
+
+      - name: Package
+        run: |
+          mkdir -p dist
+          cp src/saat_stream src/saat_sfx dist/
+          strip dist/saat_stream dist/saat_sfx
+          cp COPYING.txt README.txt MANUAL.txt metadata-full.ini metadata-generic.ini dist/
+          tar -C dist -czf saat-linux-x86_64.tar.gz .
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: saat-linux-x86_64
+          path: dist/
+
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v3
+        with:
+          files: saat-linux-x86_64.tar.gz

@@ -29,6 +29,7 @@
 #ifndef _VIRTUAL_FILE_H_
 #define _VIRTUAL_FILE_H_
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <unistd.h>
 

@@ -31,6 +31,8 @@
 #include <map>
 #include <stdexcept>
 
+#include <stdint.h>
+
 // This is thrown, with the failed directive as the message, when a
 // directive lookup fails.
 class directive_not_found : public std::runtime_error {
